@@ -41,7 +41,11 @@ async def predict(
     print(predicted_class)
     confidence = np.max(predictions[0])
     
-    return predicted_class, confidence
+    return {
+        "class": predicted_class,
+        "confidence": float(confidence)
+    }
+    
     
 
     # predictions = MODEL.predict(img_batch)
