@@ -36,13 +36,13 @@ CLASS_NAMES3=['Potato : early blight',
 def ping():
     return "This is Plant Leaf Disease Prediction API."
 
-
+  
 def read_file_as_image(data) -> np.ndarray:
     image = np.array(Image.open(BytesIO(data)))
     image=cv2.resize(image,(180, 180))
     return image
 
-
+  
 @app.post("/predict")
 async def predict(
     # UploadFile is a datatype here
