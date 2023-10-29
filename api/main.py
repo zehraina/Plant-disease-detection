@@ -7,15 +7,15 @@ import tensorflow as tf
 import requests
 app = FastAPI()
 
-# MODEL = tf.keras.models.load_model("../saved_models/1")
-endpoint = "http://localhost:8502/v1/models/potatoes_model:predict"
+MODEL = tf.keras.models.load_model("../saved_models/1")
+# endpoint = "http://localhost:8502/v1/models/potatoes_model:predict"
 CLASS_NAMES = ["Early Blight", "Late Blight", "Healthy"]
 
 
 # specifying end point
 @app.get("/ping")
 def ping():
-    return "s f"
+    return "Hello world"
 
 
 def read_file_as_image(data) -> np.ndarray:
@@ -31,14 +31,12 @@ async def predict(
     image = read_file_as_image(await file.read())
     img_batch = np.expand_dims(image, 0)
 
-    json_data = {
-        "instances": img_batch.tolist()
-    }
-    response = requests.post(endpoint, json=json_data)
-    prediction=np.array(response.json()["predictions"][0])
     
-    predicted_class=CLASS_NAMES[np.argmax(prediction)]
-    confidence=np.max(prediction)
+ 
+    predictions = MODEL.predict(img_batch)
+    
+    predicted_class = CLASS_NAMES[np.argmax(predictions[0])]
+    confidence = np.max(predictions[0])
     
     return {
         "class": predicted_class,
