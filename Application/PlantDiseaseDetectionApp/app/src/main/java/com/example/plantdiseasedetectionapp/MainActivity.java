@@ -7,9 +7,15 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
+import android.graphics.Bitmap;
+import android.widget.Toast;
+
+import java.io.ByteArrayOutputStream;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -39,15 +45,19 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == RESULT_OK){
+        if(resultCode == RESULT_OK){
             if(requestCode==CAMERA_REQ_CODE){
                 //for camera
 
                 Bitmap img = (Bitmap)(data.getExtras().get("data"));
                 imgCamera.setImageBitmap(img);
+
+                ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                img.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                byte[] byteArray = stream.toByteArray();
+                String bs=byteArray.toString();
+                Log.d("MainActivity","byte array length: " + bs.length());
             }
         }
-
-
     }
 }
