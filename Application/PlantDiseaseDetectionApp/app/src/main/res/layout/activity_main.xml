@@ -9,13 +9,13 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="412dp"
+        android:layout_height="567dp"
         android:contentDescription="TODO"
         app:srcCompat="@drawable/img_1"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="-46dp" />
+        tools:layout_editor_absoluteX="-1dp"
+        tools:layout_editor_absoluteY="-23dp">
 
     <TextView
         android:id="@+id/textView"
@@ -35,12 +35,27 @@
     />
 
     <LinearLayout
-        android:layout_width="454dp"
-        android:layout_height="203dp"
+        android:layout_width="415dp"
+        android:layout_height="169dp"
         android:background="#16161D"
         android:orientation="horizontal"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="-10dp"
-        tools:layout_editor_absoluteY="567dp" />
+        tools:layout_editor_absoluteX="-3dp"
+        tools:layout_editor_absoluteY="566dp">
+
+        <ImageView
+            android:id="@+id/imageView3"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/img_4" />
+
+        <ImageView
+            android:id="@+id/imageView5"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/img_6" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
