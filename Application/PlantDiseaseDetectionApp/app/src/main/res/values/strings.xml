@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PlantDiseaseDetectionApp</string>
+    <string name="potato_disease_detector">POTATO DISEASE DETECTOR</string>
+</resources>
