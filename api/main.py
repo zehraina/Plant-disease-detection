@@ -56,9 +56,11 @@ async def predict(
     
     predicted_class = np.argmax(predictions[0])
     class_name=CLASS_NAMES3[predicted_class]
-    
-    print(class_name)   
+     
     confidence = np.max(predictions[0])
+
+    
+    print(class_name, confidence)  
     
     return {
         'class': class_name,
