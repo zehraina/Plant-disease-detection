@@ -40,7 +40,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         imgCamera = findViewById(R.id.imgCamera);
+        ImageView imageView2 = findViewById(R.id.imageView2);
         ImageView imageView3 = findViewById(R.id.imageView3);
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent iGallery = new Intent(Intent.ACTION_PICK);
+                iGallery.setData(MediaStore.Images.Media)
+            }
+        });
 
         imageView3.setOnClickListener(new View.OnClickListener() {
             @Override
