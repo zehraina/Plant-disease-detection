@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             // Need to CHANGE this URL repeatedly for different ngrok server instances
-                            URL url = new URL("https://5872-14-139-241-203.ngrok.io/predict");
+                            URL url = new URL("https://f31-14-139-241-203.ngrok.io/predict");
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                             conn.setRequestMethod("POST");
                             conn.setDoOutput(true);
