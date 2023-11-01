@@ -95,12 +95,27 @@
 
                 <Button
                     android:id="@+id/button"
-                    android:layout_width="match_parent"
-                    android:layout_height="65dp"
+                    android:layout_width="230dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="10dp"
                     android:backgroundTint="#2689D8"
                     android:clickable="true"
-                    android:text="Predict Results"
+                    android:onClick="make_prediction"
+                    android:text="Predict"
                     android:textSize="30dp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="31dp"
+                    android:layout_marginTop="20dp"
+                    android:text=" " />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="match_parent"
+                    android:layout_height="32dp" />
 
             </LinearLayout>
         </LinearLayout>
