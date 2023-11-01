@@ -8,7 +8,7 @@ import requests
 import cv2
 app = FastAPI()
 
-MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/4/model4.pb")
+MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/2/model2.pb")
 # endpoint = "http://localhost:8502/v1/models/potatoes_model:predict"
 CLASS_NAMES2 = ["Early Blight", "Late Blight", "Healthy"]
 
@@ -39,7 +39,7 @@ def ping():
   
 def read_file_as_image(data) -> np.ndarray:
     image = np.array(Image.open(BytesIO(data)))
-    image=cv2.resize(image,(256, 256))/255.0
+    image=cv2.resize(image,(224, 224))/255.0
     return image
 
   
@@ -55,7 +55,7 @@ async def predict(
     predictions = MODEL.predict(img_batch)
     
     predicted_class = np.argmax(predictions[0])
-    class_name=CLASS_NAMES3[predicted_class]
+    class_name=CLASS_NAMES2[predicted_class]
      
     confidence = np.max(predictions[0])
 

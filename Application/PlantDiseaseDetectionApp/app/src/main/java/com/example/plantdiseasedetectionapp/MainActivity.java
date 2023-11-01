@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             // Need to CHANGE this URL repeatedly for different ngrok server instances
-                            URL url = new URL("https://ec64-2409-4081-9e1d-c64f-71fa-1194-6a45-1827.ngrok.io/predict");
+                            URL url = new URL("https://f486-2409-4081-9e1d-c64f-5b05-991e-c84a-2766.ngrok.io/predict");
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                             conn.setRequestMethod("POST");
                             conn.setDoOutput(true);
