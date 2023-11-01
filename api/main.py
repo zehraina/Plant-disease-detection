@@ -64,7 +64,7 @@ async def predict(
     
     return {
         'class': class_name,
-        'confidence': float(confidence)
+        'confidence': float(confidence)*100
     }
 
 
