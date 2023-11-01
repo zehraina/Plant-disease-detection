@@ -82,7 +82,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:padding="10dp"
+                    android:padding="15dp"
                     app:srcCompat="@drawable/img_10" />
             </LinearLayout>
 
@@ -100,12 +100,6 @@
                     android:clickable="true"
                     android:text="Predict Results"
                     android:textSize="30dp" />
-
-                <TextView
-                    android:id="@+id/textView"
-                    android:layout_width="match_parent"
-                    android:layout_height="138dp"
-                    android:text="TextView" />
 
             </LinearLayout>
         </LinearLayout>
