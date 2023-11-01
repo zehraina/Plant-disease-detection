@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="469dp"
             android:orientation="vertical"
-            android:background="#474a48">
+            android:background="#2c302e">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -32,7 +32,7 @@
                     android:paddingTop="20dp"
                     android:text="POTATO DISEASE DETECTION"
                     android:textAlignment="center"
-                    android:textColor="#e8f1f2"
+                    android:textColor="@color/white"
                     android:textSize="25dp" />
             </LinearLayout>
 
@@ -41,7 +41,7 @@
                 android:id="@+id/imgCamera"
                 android:layout_width="match_parent"
                 android:layout_height="347dp"
-                app:srcCompat="@drawable/img_1">
+                app:srcCompat="@drawable/img_7">
 
 
             </ImageView>
@@ -91,11 +91,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:background="#7a9e7e">
+                android:background="#373737">
 
                 <Button
                     android:id="@+id/button"
-                    android:layout_width="230dp"
+                    android:layout_width="179dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="30dp"
                     android:layout_marginTop="10dp"
@@ -108,13 +108,20 @@
                 <TextView
                     android:id="@+id/result1"
                     android:layout_width="match_parent"
-                    android:layout_height="31dp"
-                    android:layout_marginTop="20dp" />
+                    android:layout_height="84dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="20dp"
+                    android:text="Results"
+                    android:textColor="@color/white"
+                    android:textSize="25dp" />
 
                 <TextView
                     android:id="@+id/result2"
                     android:layout_width="match_parent"
-                    android:layout_height="32dp" />
+                    android:layout_height="53dp"
+                    android:paddingLeft="20dp"
+                    android:textColor="@color/white"
+                    android:textSize="25dp" />
 
             </LinearLayout>
         </LinearLayout>
