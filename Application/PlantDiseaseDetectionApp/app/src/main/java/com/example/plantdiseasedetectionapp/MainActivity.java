@@ -9,11 +9,14 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 
 import android.graphics.Bitmap;
 import android.widget.Toast;
+import com.example.plantdiseasedetectionapp.R;
+
+public class MainActivity extends AppCompatActivity {
+
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if(resultCode == RESULT_OK){
             if(requestCode==CAMERA_REQ_CODE){
                 //for camera
