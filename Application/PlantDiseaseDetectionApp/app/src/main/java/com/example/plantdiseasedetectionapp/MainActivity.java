@@ -15,9 +15,6 @@ import android.graphics.Bitmap;
 import android.widget.Toast;
 import com.example.plantdiseasedetectionapp.R;
 
-public class MainActivity extends AppCompatActivity {
-
-
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 
@@ -68,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             // Need to CHANGE this URL repeatedly for different ngrok server instances
-                            URL url = new URL("https://95dd-14-139-241-203.ngrok.io/predict");
+                            URL url = new URL("https://e8ae-14-139-241-203.ngrok.iopredict");
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                             conn.setRequestMethod("POST");
                             conn.setDoOutput(true);
