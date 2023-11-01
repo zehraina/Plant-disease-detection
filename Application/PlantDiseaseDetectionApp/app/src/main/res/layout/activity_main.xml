@@ -17,42 +17,44 @@
             android:layout_width="match_parent"
             android:layout_height="469dp"
             android:orientation="vertical"
-            android:background="#31493c">
+            android:background="#474a48">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="138dp"
-                android:background="@color/black">
+                android:layout_height="wrap_content"
+                android:background="#2c302e">
 
                 <TextView
                     android:id="@+id/textView1"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
+                    android:layout_height="74dp"
                     android:layout_weight="1"
+                    android:paddingTop="20dp"
                     android:text="POTATO DISEASE DETECTION"
-                    android:textSize="50dp"
+                    android:textAlignment="center"
                     android:textColor="#e8f1f2"
-                    android:textAlignment="center"/>
+                    android:textSize="25dp" />
             </LinearLayout>
+
 
             <ImageView
                 android:id="@+id/imgCamera"
                 android:layout_width="match_parent"
-                android:layout_height="286dp"
+                android:layout_height="347dp"
                 app:srcCompat="@drawable/img_1">
 
 
             </ImageView>
 
-
-
             <TextView
                 android:id="@+id/textView2"
                 android:layout_width="match_parent"
-                android:layout_height="45dp"
-                android:text="Upload image or capture images"
+                android:layout_height="51dp"
+                android:text="Upload or Capture Image"
+                android:textAlignment="center"
                 android:textColor="@color/white"
-                android:textSize="28dp" />
+                android:textSize="28dp"
+                android:background="#2c302e"/>
 
 
         </LinearLayout>
@@ -65,7 +67,7 @@
             <LinearLayout
                 android:layout_width="122dp"
                 android:layout_height="match_parent"
-                android:background="@color/black"
+                android:background="#2c302e"
                 android:orientation="vertical">
 
                 <ImageView
@@ -81,7 +83,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:clickable="true"
-                    android:padding="1dp"
+                    android:padding="15dp"
                     app:srcCompat="@drawable/img_10" />
             </LinearLayout>
 
@@ -99,6 +101,7 @@
                     android:clickable="true"
                     android:text="Predict Results"
                     android:textSize="30dp" />
+
             </LinearLayout>
         </LinearLayout>
 
