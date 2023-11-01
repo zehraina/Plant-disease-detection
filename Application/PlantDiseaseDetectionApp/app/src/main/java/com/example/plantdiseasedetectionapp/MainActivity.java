@@ -15,8 +15,6 @@ import android.graphics.Bitmap;
 import android.widget.Toast;
 import com.example.plantdiseasedetectionapp.R;
 
-public class MainActivity extends AppCompatActivity {
-
 
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
@@ -29,11 +27,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 public class MainActivity extends AppCompatActivity {
-    private final int CAMERA_REQ_CODE =100;
+    private final int CAMERA_REQ_CODE = 100;
+    private final int GALLERY_REQ_CODE = 200;
     ImageView imgCamera;
     String encodedImage;
     byte[] byteArray;
-
+    String prediction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent iGallery = new Intent(Intent.ACTION_PICK);
-                iGallery.setData(MediaStore.Images.Media)
+                iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(iGallery, GALLERY_REQ_CODE);
             }
         });
 
@@ -66,6 +66,12 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK){
+
+            if(requestCode==GALLERY_REQ_CODE){
+                //for gallery
+
+                imgCamera.setImageURI(data.getData());
+            }
             if(requestCode==CAMERA_REQ_CODE){
                 //for camera
 
@@ -77,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         try {
                             // Need to CHANGE this URL repeatedly for different ngrok server instances
-                            URL url = new URL("https://95dd-14-139-241-203.ngrok.io/predict");
+                            URL url = new URL("https://5872-14-139-241-203.ngrok.io/predict");
                             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
                             conn.setRequestMethod("POST");
                             conn.setDoOutput(true);
@@ -120,8 +126,9 @@ public class MainActivity extends AppCompatActivity {
                             // Display a toast with the response
                             runOnUiThread(new Runnable() {
                                 public void run() {
+                                    prediction =content.toString();
                                     Log.d("MainActivity", "Response: " + content.toString());
-                                    Toast.makeText(MainActivity.this, "Response: " + content.toString(), Toast.LENGTH_LONG).show();
+                                    Toast.makeText(MainActivity.this, "Response: " + prediction, Toast.LENGTH_LONG).show();
                                 }
                             });
                         } catch (Exception e) {
