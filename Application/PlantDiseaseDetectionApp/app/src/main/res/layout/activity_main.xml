@@ -101,6 +101,12 @@
                     android:clickable="true"
                     android:text="Predict Results"
                     android:textSize="30dp" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="195dp"
+                    android:text="TextView" />
             </LinearLayout>
         </LinearLayout>
 
