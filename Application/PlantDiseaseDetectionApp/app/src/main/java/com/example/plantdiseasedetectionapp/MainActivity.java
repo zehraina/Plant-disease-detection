@@ -134,15 +134,23 @@ public class MainActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         public void run() {
                             prediction =content.toString();
+
                             try {
-                                result1.setText(new JSONObject(content.toString()).getString("class"));
-                                result2.setText(new JSONObject(content.toString()).getString("confidence")+"%");
+                                double conf=Double.parseDouble(new JSONObject(content.toString()).getString("confidence"));
+                                if(conf<60){
+                                    result1.setText("Can't Detect Disease Type from the given Image");
+                                    result2.setText("Please Choose the Right Crop, or a better Image");
+                                }
+                                else{
+                                    result1.setText(new JSONObject(content.toString()).getString("class"));
+                                    result2.setText(String.format("%.2f",conf)+"%");
+                                }
 
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
                             Log.d("MainActivity", "Response: " + content.toString());
-                            Toast.makeText(MainActivity.this, "Response: " + prediction, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(MainActivity.this, "Response: " + prediction, Toast.LENGTH_LONG).show();
                         }
                     });
                 } catch (Exception e) {

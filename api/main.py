@@ -8,9 +8,9 @@ import requests
 import cv2
 app = FastAPI()
 
-MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/2/model2.pb")
+MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/6/model6.pb")
 # endpoint = "http://localhost:8502/v1/models/potatoes_model:predict"
-CLASS_NAMES2 = ["Early Blight", "Late Blight", "Healthy"]
+CLASS_NAMES2 = ["Early Blight", "Late Blight", "Healthy","Junk"]
 
 CLASS_NAMES3=['Potato : early blight',
  'Potato : healthy',
@@ -59,7 +59,8 @@ async def predict(
      
     confidence = np.max(predictions[0])
 
-    
+    if(predicted_class==3):
+        confidence = 0.01
     print(class_name, confidence)  
     
     return {
