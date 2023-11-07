@@ -8,7 +8,7 @@ import requests
 import cv2
 app = FastAPI()
 
-MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/6/model6.pb")
+MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/7/potato_MobileNetV2_2")
 # endpoint = "http://localhost:8502/v1/models/potatoes_model:predict"
 CLASS_NAMES2 = ["Early Blight", "Late Blight", "Healthy","Junk"]
 
@@ -57,7 +57,7 @@ async def predict(
     predicted_class = np.argmax(predictions[0])
     class_name=CLASS_NAMES2[predicted_class]
      
-    confidence = np.max(predictions[0])
+    confidence = np.max(predictions[0])*100
 
     if(predicted_class==3):
         confidence = 0.01
@@ -65,7 +65,7 @@ async def predict(
     
     return {
         'class': class_name,
-        'confidence': float(confidence)*100
+        'confidence': float(confidence)
     }
 
 
