@@ -11,7 +11,7 @@ app = FastAPI()
 OOD_MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/OOD/ood6")
 
 MODEL_0 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/0/0_Potato_mobileNet")
-#MODEL_1 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/1/1_Tomato_mobileNet")
+MODEL_1 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/1/1_Tomato_mobileNet")
 MODEL_2 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/2/2_Corn_mobileNet")
 MODEL_3 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/3/3_Apple_mobileNet")
 MODEL_4 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/4/4_Grapes_mobileNet")
