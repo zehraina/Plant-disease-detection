@@ -73,8 +73,9 @@
                                 android:id="@+id/imageView7"
                                 android:layout_width="match_parent"
                                 android:layout_height="126dp"
-                                android:padding="10dp"
                                 android:layout_marginTop="5dp"
+                                android:clickable="true"
+                                android:padding="10dp"
                                 android:src="@drawable/ic_menu_camera" />
 
                             <TextView
@@ -96,8 +97,9 @@
                                 android:id="@+id/imageView8"
                                 android:layout_width="match_parent"
                                 android:layout_height="126dp"
-                                android:padding="10dp"
                                 android:layout_marginTop="5dp"
+                                android:clickable="true"
+                                android:padding="10dp"
                                 android:src="@drawable/ic_menu_gallery" />
 
                             <TextView
@@ -173,8 +175,17 @@
 <!--                </LinearLayout>-->
 
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="113dp">
+                        android:layout_width="332dp"
+                        android:layout_height="200dp"
+                        android:layout_marginStart="40dp">
+
+                        <ImageView
+                            android:id="@+id/imageView6"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+
+                        </ImageView>
 
 
                     </LinearLayout>
