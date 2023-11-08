@@ -180,7 +180,7 @@
                         android:layout_marginStart="40dp">
 
                         <ImageView
-                            android:id="@+id/imageView6"
+                            android:id="@+id/imgDisplay"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent">
 
