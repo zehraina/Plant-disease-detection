@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,78 +9,251 @@
     <TextView
         android:id="@+id/text_home"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="wrap_content"/>
 
-    <ScrollView
-        android:layout_width="411dp"
-        android:layout_height="729dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:background="@color/black">
+            android:layout_height="640dp"
+            android:paddingTop="50dp"
+            android:background="@drawable/bg5">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@color/white"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:paddingTop="10dp"
+                        android:text="--"
+                        android:textAlignment="center"
+                        android:textSize="50dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:paddingLeft="20dp"
+                            android:text="Heal your crop"
+                            android:textSize="30dp" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="179dp"
+                        android:background="@drawable/rec">
+
+
+                        <LinearLayout
+                            android:layout_width="165dp"
+                            android:layout_height="match_parent"
+                            android:layout_marginStart="40dp"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageView13"
+                                android:layout_width="match_parent"
+                                android:layout_height="126dp"
+                                android:padding="10dp"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/ic_menu_camera" />
+
+                            <TextView
+                                android:id="@+id/textView7"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Capture Image"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="165dp"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/imageView14"
+                                android:layout_width="match_parent"
+                                android:layout_height="126dp"
+                                android:padding="10dp"
+                                android:layout_marginTop="5dp"
+                                android:src="@drawable/ic_menu_gallery" />
+
+                            <TextView
+                                android:id="@+id/textView8"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="Upload Image"
+                                android:textAlignment="center"
+                                android:textColor="@color/white"
+                                android:textSize="20dp" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="170dp"-->
+<!--                        android:background="@drawable/rec">-->
+
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="200dp"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical"-->
+<!--                            android:paddingLeft="20dp"-->
+<!--                            android:paddingTop="10dp">-->
+
+<!--                            <ImageView-->
+<!--                                android:id="@+id/imageView7"-->
+<!--                                android:layout_width="150dp"-->
+<!--                                android:layout_height="150dp"-->
+<!--                                android:layout_gravity="right"-->
+<!--                                android:padding="10dp"-->
+<!--                                app:srcCompat="@drawable/p22" />-->
+<!--                        </LinearLayout>-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="match_parent"-->
+<!--                            android:layout_height="match_parent"-->
+<!--                            android:orientation="vertical">-->
+
+
+<!--                        </LinearLayout>-->
+<!--                    </LinearLayout><LinearLayout-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="170dp"-->
+<!--                    android:background="@drawable/rec">-->
+
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="200dp"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical"-->
+<!--                        android:paddingLeft="20dp"-->
+<!--                        android:paddingTop="10dp">-->
+
+<!--                        <ImageView-->
+<!--                            android:id="@+id/imageView8"-->
+<!--                            android:layout_width="150dp"-->
+<!--                            android:layout_height="150dp"-->
+<!--                            android:layout_gravity="right"-->
+<!--                            android:padding="10dp"-->
+<!--                            app:srcCompat="@drawable/p33" />-->
+<!--                    </LinearLayout>-->
+
+<!--                    <LinearLayout-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="match_parent"-->
+<!--                        android:orientation="vertical">-->
+
+
+<!--                    </LinearLayout>-->
+<!--                </LinearLayout>-->
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp">
+
+
+                    </LinearLayout>
+
+
+
+
+
+
+                    <TextView
+                        android:id="@+id/textView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="184dp"
+                        android:text="hello"
+                        android:textSize="50dp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="92dp">
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="88dp"
+                android:background="@color/white"
+                android:orientation="horizontal"
+                android:paddingTop="2dp">
 
                 <ImageView
                     android:id="@+id/imageView1"
-                    android:layout_width="85dp"
+                    android:layout_width="70dp"
                     android:layout_height="85dp"
-                    android:padding="10dp"
+                    android:clickable="true"
+                    android:padding="5dp"
                     android:src="@drawable/apple" />
 
                 <ImageView
                     android:id="@+id/imageView2"
-                    android:layout_width="65dp"
+                    android:layout_width="70dp"
                     android:layout_height="85dp"
+                    android:clickable="true"
                     android:padding="10dp"
                     android:src="@drawable/potato" />
 
                 <ImageView
                     android:id="@+id/imageView3"
-                    android:layout_width="85dp"
+                    android:layout_width="75dp"
                     android:layout_height="85dp"
-                    android:padding="10dp"
+                    android:clickable="true"
+                    android:padding="5dp"
                     android:src="@drawable/corn" />
 
                 <ImageView
                     android:id="@+id/imageView4"
-                    android:layout_width="85dp"
+                    android:layout_width="70dp"
                     android:layout_height="85dp"
-                    android:padding="1dp"
+                    android:clickable="true"
+                    android:padding="0dp"
                     android:src="@drawable/tomato" />
 
                 <ImageView
                     android:id="@+id/imageView5"
-                    android:layout_width="85dp"
+                    android:layout_width="75dp"
                     android:layout_height="85dp"
-                    android:padding="10dp"
+                    android:clickable="true"
+                    android:padding="5dp"
                     android:src="@drawable/rice" />
-
 
             </LinearLayout>
 
-        </LinearLayout>
-    </ScrollView>
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+
+
+
+    </LinearLayout>
+</RelativeLayout>
