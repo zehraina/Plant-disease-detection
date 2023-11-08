@@ -137,6 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
                             try {
                                 double conf=Double.parseDouble(new JSONObject(content.toString()).getString("confidence"));
+                                Log.d("MainActivity", conf+"");
                                 if(conf<60){
                                     result1.setText("Can't Detect Disease Type from the given Image");
                                     result2.setText("Please Choose the Right Crop, or a better Image");

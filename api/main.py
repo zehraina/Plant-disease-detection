@@ -8,34 +8,21 @@ import requests
 import cv2
 app = FastAPI()
 
-MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/6/model6.pb")
+OOD_MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/OOD/ood6")
+
+MODEL_0 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/0/0_Potato_mobileNet")
+MODEL_1 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/1/1_Tomato_mobileNet")
+MODEL_2 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/2/2_Corn_mobileNet")
+MODEL_3 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/3/3_Apple_mobileNet")
+MODEL_4 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/4/4_Grapes_mobileNet")
 # endpoint = "http://localhost:8502/v1/models/potatoes_model:predict"
 CLASS_NAMES2 = ["Early Blight", "Late Blight", "Healthy","Junk"]
-
-CLASS_NAMES3=['Potato : early blight',
- 'Potato : healthy',
- 'Potato : late blight',
- 'Tomato : bacterial spot',
- 'Tomato : early blight',
- 'Tomato : healthy',
- 'Tomato : late blight',
- 'Tomato : leaf mold',
- 'Tomato : septoria leaf spot',
- 'Tomato : spider mites two-spotted spider mite',
- 'Tomato : target spot',
- 'Tomato : tomato mosaic virus',
- 'Tomato : tomato yellow leaf curl virus',
- 'Corn : cercospora leaf spot gray leaf spot',
- 'Corn : common rust',
- 'Corn : healthy',
- 'Corn : northern leaf blight']
-
 
 # specifying end point
 @app.get("/ping")
 def ping():
     return "This is Plant Leaf Disease Prediction API."
-
+    
   
 def read_file_as_image(data) -> np.ndarray:
     image = np.array(Image.open(BytesIO(data)))
@@ -52,20 +39,29 @@ async def predict(
     img_batch = np.expand_dims(image, 0)
 
     
-    predictions = MODEL.predict(img_batch)
+    ood_pred=OOD_MODEL.predict(img_batch)
+    ood_check=np.argmax(ood_pred[0])
+    ood_confidence = np.max(ood_pred[0])*100
+    if(ood_check==0):
+        print("Junk Image",ood_check)
+        print(ood_confidence)
+        return {
+            'class': "junk",
+            'confidence': 0.01
+        }
+    
+    predictions = MODEL_0.predict(img_batch)
     
     predicted_class = np.argmax(predictions[0])
     class_name=CLASS_NAMES2[predicted_class]
      
-    confidence = np.max(predictions[0])
+    confidence = np.max(predictions[0])*100
 
-    if(predicted_class==3):
-        confidence = 0.01
     print(class_name, confidence)  
     
     return {
         'class': class_name,
-        'confidence': float(confidence)*100
+        'confidence': float(confidence)
     }
 
 
