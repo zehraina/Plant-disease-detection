@@ -17,8 +17,8 @@ import com.example.plant_disease_detection.databinding.FragmentHomeBinding;
 public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding binding;
-    private TextView textView2, textView3;
-    private ImageView imageView1, imageView2, imageView3, imageView4, imageView5;
+    private TextView textView1, textView5;
+    private ImageView imageView1, imageView2, imageView3, imageView4, imageView5, imageView7, imageView8;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -29,38 +29,41 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
 
         // Initialize views
-        textView2 = root.findViewById(R.id.textView2);
-        textView3 = root.findViewById(R.id.textView3);
+        textView1 = root.findViewById(R.id.textView1);
+        textView5 = root.findViewById(R.id.textView5);
         imageView1 = root.findViewById(R.id.imageView1);
         imageView2 = root.findViewById(R.id.imageView2);
         imageView3 = root.findViewById(R.id.imageView3);
         imageView4 = root.findViewById(R.id.imageView4);
         imageView5 = root.findViewById(R.id.imageView5);
+        imageView7 = root.findViewById(R.id.imageView7);
+        imageView8 = root.findViewById(R.id.imageView8);
+
 
         // Set onClick listeners for ImageViews
         imageView1.setOnClickListener(v -> {
-            textView2.setText("Content for Image 1 - TextView2");
-            textView3.setText("Content for Image 1 - TextView3");
+            textView1.setText("APPLE");
+            textView5.setText("Content for Image 1 - TextView3");
         });
 
         imageView2.setOnClickListener(v -> {
-            textView2.setText("Content for Image 2 - TextView2");
-            textView3.setText("Content for Image 2 - TextView3");
+            textView1.setText("POTATO");
+            textView5.setText("Content for Image 2 - TextView3");
         });
 
         imageView3.setOnClickListener(v -> {
-            textView2.setText("Content for Image 3 - TextView2");
-            textView3.setText("Content for Image 3 - TextView3");
+            textView1.setText("CORN");
+            textView5.setText("Content for Image 3 - TextView3");
         });
 
         imageView4.setOnClickListener(v -> {
-            textView2.setText("Content for Image 4 - TextView2");
-            textView3.setText("Content for Image 4 - TextView3");
+            textView1.setText("TOMATO");
+            textView5.setText("Content for Image 4 - TextView3");
         });
 
         imageView5.setOnClickListener(v -> {
-            textView2.setText("Content for Image 5 - TextView2");
-            textView3.setText("Content for Image 5 - TextView3");
+            textView1.setText("RICE");
+            textView5.setText("Content for Image 5 - TextView3");
         });
 
         final TextView textView = binding.textHome;
