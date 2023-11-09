@@ -73,64 +73,107 @@ public class HomeFragment extends Fragment {
         imageView1.setOnClickListener(v -> {
             textView1.setText("APPLE");
             textView5.setText("Content for Image 1 - TextView3");
+            imageView7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(iCamera, CAMERA_REQ_CODE_ImageView1);
+                }
+            });
+            imageView8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iGallery = new Intent(Intent.ACTION_PICK);
+                    iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(iGallery, GALLERY_REQ_CODE_ImageView1);
+                }
+            });
         });
 
         imageView2.setOnClickListener(v -> {
             textView1.setText("POTATO");
             textView5.setText("Content for Image 2 - TextView3");
+            imageView7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(iCamera, CAMERA_REQ_CODE_ImageView2);
+                }
+            });
+            imageView8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iGallery = new Intent(Intent.ACTION_PICK);
+                    iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(iGallery, GALLERY_REQ_CODE_ImageView2);
+                }
+            });
         });
 
         imageView3.setOnClickListener(v -> {
             textView1.setText("CORN");
             textView5.setText("Content for Image 3 - TextView3");
+            imageView7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(iCamera, CAMERA_REQ_CODE_ImageView3);
+                }
+            });
+            imageView8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iGallery = new Intent(Intent.ACTION_PICK);
+                    iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(iGallery, GALLERY_REQ_CODE_ImageView3);
+                }
+            });
         });
 
         imageView4.setOnClickListener(v -> {
             textView1.setText("TOMATO");
             textView5.setText("Content for Image 4 - TextView3");
+            imageView7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(iCamera, CAMERA_REQ_CODE_ImageView4);
+                }
+            });
+            imageView8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iGallery = new Intent(Intent.ACTION_PICK);
+                    iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(iGallery, GALLERY_REQ_CODE_ImageView4);
+                }
+            });
         });
 
         imageView5.setOnClickListener(v -> {
             textView1.setText("RICE");
             textView5.setText("Content for Image 5 - TextView3");
+            imageView7.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                    startActivityForResult(iCamera, CAMERA_REQ_CODE_ImageView5);
+                }
+            });
+            imageView8.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent iGallery = new Intent(Intent.ACTION_PICK);
+                    iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                    startActivityForResult(iGallery, GALLERY_REQ_CODE_ImageView5);
+                }
+            });
         });
-
-
-
-
-
-        imageView7.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                startActivityForResult(iCamera, CAMERA_REQ_CODE_ImageView1);
-            }
-        });
-
-        imageView8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent iGallery = new Intent(Intent.ACTION_PICK);
-                iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                startActivityForResult(iGallery, GALLERY_REQ_CODE_ImageView1);
-            }
-        });
-
-
-
-
-
-
-
 
         final TextView textView = binding.textHome;
         homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
-
-
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -141,30 +184,60 @@ public class HomeFragment extends Fragment {
             if(requestCode==CAMERA_REQ_CODE_ImageView1){
                 //for camera of imageview1 = apple
 
-                Bitmap img = (Bitmap)(data.getExtras().get("data"));
-                imgDisplay.setImageBitmap(img);
+                Bitmap img1 = (Bitmap)(data.getExtras().get("data"));
+                imgDisplay.setImageBitmap(img1);
             }
+            else if(requestCode==CAMERA_REQ_CODE_ImageView2){
+                //for camera of imageview2 = potato
 
-//            if(requestCode==GALLERY_REQ_CODE_ImageView1){
-//                //for gallery
-//                Uri imageUri = data.getData();
-//                try {
-//                    img = MediaStore.Images.Media.getBitmap(this.getContentResolver(), imageUri);
-//                    imgDisplay.setImageBitmap(img);
-//                    image_received=true;
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
-//            }
+                Bitmap img2 = (Bitmap)(data.getExtras().get("data"));
+                imgDisplay.setImageBitmap(img2);
+            }
+            else if(requestCode==CAMERA_REQ_CODE_ImageView3){
+                //for camera of imageview2 = potato
 
+                Bitmap img3 = (Bitmap)(data.getExtras().get("data"));
+                imgDisplay.setImageBitmap(img3);
+            }
+            else if(requestCode==CAMERA_REQ_CODE_ImageView4){
+                //for camera of imageview2 = potato
 
+                Bitmap img4 = (Bitmap)(data.getExtras().get("data"));
+                imgDisplay.setImageBitmap(img4);
+            }
+            else if(requestCode==CAMERA_REQ_CODE_ImageView5){
+                //for camera of imageview2 = potato
 
+                Bitmap img5 = (Bitmap)(data.getExtras().get("data"));
+                imgDisplay.setImageBitmap(img5);
+            }
+            else if(requestCode==GALLERY_REQ_CODE_ImageView1){
+                //for gallery of imageview1 = apple
+
+                imgDisplay.setImageURI(data.getData());
+            }
+            else if(requestCode==GALLERY_REQ_CODE_ImageView2){
+                //for gallery of imageview2 = potato
+
+                imgDisplay.setImageURI(data.getData());
+            }
+            else if(requestCode==GALLERY_REQ_CODE_ImageView3){
+                //for gallery of imageview3 = corn
+
+                imgDisplay.setImageURI(data.getData());
+            }
+            else if(requestCode==GALLERY_REQ_CODE_ImageView4){
+                //for gallery of imageview4 = tomato
+
+                imgDisplay.setImageURI(data.getData());
+            }
+            else if(requestCode==GALLERY_REQ_CODE_ImageView5){
+                //for gallery of imageview5 = rice
+
+                imgDisplay.setImageURI(data.getData());
+            }
         }
     }
-
-
-
-
 
     @Override
     public void onDestroyView() {
