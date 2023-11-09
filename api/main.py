@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Form
 import uvicorn
 import numpy as np
 from io import BytesIO
@@ -8,15 +8,31 @@ import requests
 import cv2
 app = FastAPI()
 
-OOD_MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/OOD/ood6")
+potataoClasses = ["Early Blight", "Late Blight", "Healthy"]
 
+tomatoClasses=['Tomato : bacterial spot',
+ 'Tomato : early blight',
+ 'Tomato : healthy',
+ 'Tomato : late blight',
+ 'Tomato : leaf mold',
+ 'Tomato : septoria leaf spot',
+ 'Tomato : spider mites two-spotted spider mite',
+ 'Tomato : target spot',
+ 'Tomato : tomato mosaic virus',
+ 'Tomato : tomato yellow leaf curl virus']
+
+cornClasses=['Corn : cercospora leaf spot gray leaf spot',
+ 'Corn : common rust',
+ 'Corn : healthy',
+ 'Corn : northern leaf blight']
+
+OOD_MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/OOD/ood6")
+# endpoint = "http://localhost:8502/v1/models/potatoes_model:predict"
 MODEL_0 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/0/0_Potato_mobileNet")
 MODEL_1 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/1/1_Tomato_mobileNet")
 MODEL_2 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/2/2_Corn_mobileNet")
 MODEL_3 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/3/3_Apple_mobileNet")
 MODEL_4 = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/4/4_Grapes_mobileNet")
-# endpoint = "http://localhost:8502/v1/models/potatoes_model:predict"
-CLASS_NAMES2 = ["Early Blight", "Late Blight", "Healthy","Junk"]
 
 # specifying end point
 @app.get("/ping")
@@ -33,8 +49,8 @@ def read_file_as_image(data) -> np.ndarray:
 @app.post("/predict")
 async def predict(
     # UploadFile is a datatype here
-        file: UploadFile = File(...)):
-
+        file: UploadFile = File(...),
+        parameter: str=Form(...)):
     image = read_file_as_image(await file.read())
     img_batch = np.expand_dims(image, 0)
 
@@ -52,16 +68,17 @@ async def predict(
     
     predictions = MODEL_0.predict(img_batch)
     
-    predicted_class = np.argmax(predictions[0])
-    class_name=CLASS_NAMES2[predicted_class]
+    predicted_class = int(np.argmax(predictions[0]))
+    #class_name=potataoClasses[predicted_class]
      
     confidence = np.max(predictions[0])*100
 
-    print(class_name, confidence)  
+    
+    print(predicted_class, confidence, parameter)  
     
     return {
-        'class': class_name,
-        'confidence': float(confidence)
+        'class': predicted_class,
+        'confidence': float(confidence)*100
     }
 
 
