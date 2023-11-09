@@ -35,11 +35,11 @@
                     <TextView
                         android:id="@+id/textView1"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="62dp"
                         android:paddingTop="10dp"
                         android:text=""
-                        android:textAlignment="center"
-                        android:textColor="@color/black"
+                        android:paddingStart="30dp"
+                        android:textColor="#33402F"
                         android:textSize="50dp" />
 
                     <LinearLayout
@@ -51,8 +51,27 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:paddingLeft="20dp"
-                            android:text="Heal your crop"
-                            android:textSize="30dp" />
+                            android:paddingTop="10dp"
+                            android:text="Check your Crop"
+                            android:textSize="30dp"
+                            android:textColor="#618C4D"/>
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="332dp"
+                        android:layout_height="267dp"
+                        android:layout_marginStart="40dp">
+
+                        <ImageView
+                            android:id="@+id/imgDisplay"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="#73A65B">
+
+
+                        </ImageView>
 
 
                     </LinearLayout>
@@ -174,21 +193,7 @@
 <!--                    </LinearLayout>-->
 <!--                </LinearLayout>-->
 
-                    <LinearLayout
-                        android:layout_width="332dp"
-                        android:layout_height="200dp"
-                        android:layout_marginStart="40dp">
 
-                        <ImageView
-                            android:id="@+id/imgDisplay"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-
-                        </ImageView>
-
-
-                    </LinearLayout>
 
                     <TextView
                         android:id="@+id/textView5"
@@ -213,7 +218,8 @@
                 android:layout_height="88dp"
                 android:background="@color/white"
                 android:orientation="horizontal"
-                android:paddingTop="2dp">
+                android:paddingTop="2dp"
+                android:backgroundTint="#CCD9B8">
 
                 <ImageView
                     android:id="@+id/imageView1"
@@ -228,7 +234,7 @@
                     android:layout_width="70dp"
                     android:layout_height="85dp"
                     android:clickable="true"
-                    android:padding="10dp"
+                    android:padding="5dp"
                     android:src="@drawable/potato" />
 
                 <ImageView
@@ -244,7 +250,7 @@
                     android:layout_width="70dp"
                     android:layout_height="85dp"
                     android:clickable="true"
-                    android:padding="0dp"
+                    android:padding="10dp"
                     android:src="@drawable/tomato" />
 
                 <ImageView
@@ -253,7 +259,7 @@
                     android:layout_height="85dp"
                     android:clickable="true"
                     android:padding="5dp"
-                    android:src="@drawable/rice" />
+                    android:src="@drawable/grapes" />
 
             </LinearLayout>
 
