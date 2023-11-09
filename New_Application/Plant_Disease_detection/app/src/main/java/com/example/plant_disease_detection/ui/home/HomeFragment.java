@@ -2,7 +2,6 @@ package com.example.plant_disease_detection.ui.home;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.content.ContentResolver;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -41,7 +40,8 @@ public class HomeFragment extends Fragment {
     private final int CAMERA_REQ_CODE_ImageView5 = 90;
     private final int GALLERY_REQ_CODE_ImageView5 = 100;
     ImageView imgDisplay;
-    public static TextView result1, result2;
+
+    public static TextView result1, result2,DiseaseDetails;
     public static Bitmap img;
     Uri imageUri;
     public static boolean image_received=false;
@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment {
         imgDisplay = root.findViewById(R.id.imgDisplay);
 
         textView1 = root.findViewById(R.id.textView1);
-        textView5 = root.findViewById(R.id.textView5);
+        textView5 = root.findViewById(R.id.DiseaseDetails);
         imageView1 = root.findViewById(R.id.imageView1);
         imageView2 = root.findViewById(R.id.imageView2);
         imageView3 = root.findViewById(R.id.imageView3);
@@ -73,6 +73,7 @@ public class HomeFragment extends Fragment {
         //prediction textView
         result1=root.findViewById((R.id.result1));
         result2=root.findViewById(R.id.result2);
+        DiseaseDetails=root.findViewById(R.id.DiseaseDetails);
         // Set onClick listeners for ImageViews
         imageView1.setOnClickListener(v -> {
             textView1.setText("APPLE");
@@ -208,7 +209,6 @@ public class HomeFragment extends Fragment {
             }
 
             if(mainActivity!=null){
-                Toast.makeText(mainActivity, "Step 1", Toast.LENGTH_SHORT).show();
                 mainActivity.make_prediction(crop_ID);
             }
         }

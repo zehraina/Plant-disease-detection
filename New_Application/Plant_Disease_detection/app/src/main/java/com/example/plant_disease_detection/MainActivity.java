@@ -1,5 +1,5 @@
 package com.example.plant_disease_detection;
-
+import okhttp3.*;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,6 +26,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -137,12 +138,14 @@ public class MainActivity extends AppCompatActivity {
                                 double conf=Double.parseDouble(new JSONObject(content.toString()).getString("confidence"));
                                 Log.d("MainActivity", conf+"");
                                 if(conf<60){
-                                    HomeFragment.result1.setText("Can't Detect Disease Type from the given Image");
-                                    HomeFragment.result2.setText("Please Choose the Right Crop, or a better Image");
+                                    HomeFragment.result1.setText("");
+                                    HomeFragment.result2.setText("Please Choose the Right Crop Image");
                                 }
                                 else{
+                                    String leafDisease=new JSONObject(content.toString()).getString("class");
                                     HomeFragment.result1.setText(new JSONObject(content.toString()).getString("class"));
                                     HomeFragment.result2.setText(String.format("%.2f",conf)+"%");
+                                    displayGptInfo(leafDisease);
                                 }
                             } catch (JSONException e) {
                                 Log.d("MainActivity", "run: error");
@@ -150,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("MainActivity", "Response: " + content.toString());
-                            Toast.makeText(MainActivity.this, "Response: " + prediction+" | "+crop_ID, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(MainActivity.this, "Response: " + prediction+" | "+crop_ID, Toast.LENGTH_LONG).show();
+
                         }
                     });
                 } catch (Exception e) {
@@ -159,4 +163,46 @@ public class MainActivity extends AppCompatActivity {
             }
         }).start();
     }
+
+    public void displayGptInfo(String leafDisease) {
+
+        OkHttpClient client = new OkHttpClient();
+
+        MediaType mediaType = MediaType.parse("application/json");
+        RequestBody body = RequestBody.create(mediaType, "{ \"prompt\": \" Give Cure for "+leafDisease+"\", \"max_tokens\": 60 }");
+        Request request = new Request.Builder()
+            .url("https://api.openai.com/v1/engines/davinci-codex/completions")
+            .post(body)
+            .addHeader("Content-Type", "application/json")
+            .addHeader("Authorization", "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")
+            .build();
+    
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+    
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    // Do something with the response.
+                    final String gpt3Response = response.body().string();
+    
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            // Update the UI with the GPT-3 response
+
+                            HomeFragment.DiseaseDetails.setText(gpt3Response);
+                        }
+                    });
+                }
+            }
+        });
+    }
+    
 }
