@@ -6,3 +6,8 @@ Datasets-
 4. _l	300 - 600 mb		#.gitignore
 5. _vl	600 - 1000 mb 		#.gitignore
 6. _ul  1000 - ... mb		#.gitignore
+
+
+Application
+Upload and Capture from camera
+and predict button
