@@ -1,4 +1,4 @@
-from fastapi import FastAPI, File, UploadFile
+from fastapi import FastAPI, File, UploadFile, Form
 import uvicorn
 import numpy as np
 from io import BytesIO
@@ -10,12 +10,9 @@ app = FastAPI()
 
 MODEL = tf.keras.models.load_model("../model_building_and_testing/models/saved_models/2/model2.pb")
 # endpoint = "http://localhost:8502/v1/models/potatoes_model:predict"
-CLASS_NAMES2 = ["Early Blight", "Late Blight", "Healthy"]
+potataoClasses = ["Early Blight", "Late Blight", "Healthy"]
 
-CLASS_NAMES3=['Potato : early blight',
- 'Potato : healthy',
- 'Potato : late blight',
- 'Tomato : bacterial spot',
+tomatoClasses=['Tomato : bacterial spot',
  'Tomato : early blight',
  'Tomato : healthy',
  'Tomato : late blight',
@@ -24,8 +21,9 @@ CLASS_NAMES3=['Potato : early blight',
  'Tomato : spider mites two-spotted spider mite',
  'Tomato : target spot',
  'Tomato : tomato mosaic virus',
- 'Tomato : tomato yellow leaf curl virus',
- 'Corn : cercospora leaf spot gray leaf spot',
+ 'Tomato : tomato yellow leaf curl virus']
+
+cornClasses=['Corn : cercospora leaf spot gray leaf spot',
  'Corn : common rust',
  'Corn : healthy',
  'Corn : northern leaf blight']
@@ -46,24 +44,24 @@ def read_file_as_image(data) -> np.ndarray:
 @app.post("/predict")
 async def predict(
     # UploadFile is a datatype here
-        file: UploadFile = File(...)):
-
+        file: UploadFile = File(...),
+        parameter: str=Form(...)):
     image = read_file_as_image(await file.read())
     img_batch = np.expand_dims(image, 0)
 
     
     predictions = MODEL.predict(img_batch)
     
-    predicted_class = np.argmax(predictions[0])
-    class_name=CLASS_NAMES2[predicted_class]
+    predicted_class = int(np.argmax(predictions[0]))
+    #class_name=potataoClasses[predicted_class]
      
     confidence = np.max(predictions[0])
 
     
-    print(class_name, confidence)  
+    print(predicted_class, confidence, parameter)  
     
     return {
-        'class': class_name,
+        'class': predicted_class,
         'confidence': float(confidence)*100
     }
 
