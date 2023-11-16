@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
     private final int GALLERY_REQ_CODE_ImageView5 = 100;
     ImageView imgDisplay;
 
-    public static TextView result1, result2,DiseaseDetails;
+    public static TextView result1, result2,DiseaseDetails,status;
     public static Bitmap img;
     Uri imageUri;
     public static boolean image_received=false;
@@ -61,7 +61,7 @@ public class HomeFragment extends Fragment {
         imgDisplay = root.findViewById(R.id.imgDisplay);
 
         textView1 = root.findViewById(R.id.textView1);
-        textView5 = root.findViewById(R.id.DiseaseDetails);
+        DiseaseDetails = root.findViewById(R.id.DiseaseDetails);
         imageView1 = root.findViewById(R.id.imageView1);
         imageView2 = root.findViewById(R.id.imageView2);
         imageView3 = root.findViewById(R.id.imageView3);
@@ -71,13 +71,13 @@ public class HomeFragment extends Fragment {
         imageView8 = root.findViewById(R.id.imageView8);
 
         //prediction textView
+        status=root.findViewById(((R.id.status)));
+        status.setText("");
         result1=root.findViewById((R.id.result1));
         result2=root.findViewById(R.id.result2);
-        DiseaseDetails=root.findViewById(R.id.DiseaseDetails);
         // Set onClick listeners for ImageViews
         imageView1.setOnClickListener(v -> {
             textView1.setText("APPLE");
-            textView5.setText("Content for Image 1 - TextView3");
             crop_ID="3";
             imageView7.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -98,13 +98,13 @@ public class HomeFragment extends Fragment {
 
         imageView2.setOnClickListener(v -> {
             textView1.setText("POTATO");
-            textView5.setText("Content for Image 2 - TextView3");
             crop_ID="0";
             imageView7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     Intent iCamera = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                     startActivityForResult(iCamera, CAMERA_REQ_CODE_ImageView2);
+
                 }
             });
             imageView8.setOnClickListener(new View.OnClickListener() {
@@ -113,13 +113,14 @@ public class HomeFragment extends Fragment {
                     Intent iGallery = new Intent(Intent.ACTION_PICK);
                     iGallery.setData(MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                     startActivityForResult(iGallery, GALLERY_REQ_CODE_ImageView2);
+
+
                 }
             });
         });
 
         imageView3.setOnClickListener(v -> {
             textView1.setText("CORN");
-            textView5.setText("Content for Image 3 - TextView3");
             crop_ID="2";
             imageView7.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -140,7 +141,6 @@ public class HomeFragment extends Fragment {
 
         imageView4.setOnClickListener(v -> {
             textView1.setText("TOMATO");
-            textView5.setText("Content for Image 4 - TextView3");
             crop_ID="1";
             imageView7.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -161,7 +161,6 @@ public class HomeFragment extends Fragment {
 
         imageView5.setOnClickListener(v -> {
             textView1.setText("Grape");
-            textView5.setText("Content for Image 5 - TextView3");
             crop_ID="4";
             imageView7.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -191,7 +190,10 @@ public class HomeFragment extends Fragment {
         super.onActivityResult(requestCode, resultCode, data);
         if(resultCode == RESULT_OK){
             image_received=true;
-
+            HomeFragment.DiseaseDetails.setText("");
+            HomeFragment.result1.setText("");
+            HomeFragment.result2.setText("");
+            HomeFragment.status.setText("Image Received");
             if((requestCode/10)%2!=0){
                 img = (Bitmap)(data.getExtras().get("data"));
                 imgDisplay.setImageBitmap(img);
@@ -209,6 +211,7 @@ public class HomeFragment extends Fragment {
             }
 
             if(mainActivity!=null){
+                HomeFragment.status.setText("Making Predictions..");
                 mainActivity.make_prediction(crop_ID);
             }
         }
@@ -218,5 +221,5 @@ public class HomeFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
-
 }
+

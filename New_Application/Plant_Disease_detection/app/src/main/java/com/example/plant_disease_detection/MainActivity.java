@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plant_disease_detection.ui.home.HomeFragment;
@@ -32,7 +33,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 public class MainActivity extends AppCompatActivity {
-
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
     String prediction;
@@ -138,14 +138,16 @@ public class MainActivity extends AppCompatActivity {
                                 double conf=Double.parseDouble(new JSONObject(content.toString()).getString("confidence"));
                                 Log.d("MainActivity", conf+"");
                                 if(conf<60){
+                                    HomeFragment.status.setText("Can't Predict this Image, Please Retry");
                                     HomeFragment.result1.setText("");
-                                    HomeFragment.result2.setText("Please Choose the Right Crop Image");
+                                    HomeFragment.result2.setText("");
                                 }
                                 else{
                                     String leafDisease=new JSONObject(content.toString()).getString("class");
                                     HomeFragment.result1.setText(new JSONObject(content.toString()).getString("class"));
                                     HomeFragment.result2.setText(String.format("%.2f",conf)+"%");
-                                    displayGptInfo(leafDisease);
+                                    HomeFragment.status.setText("Collecting Info from Web");
+                                    displayInfo(leafDisease);
                                 }
                             } catch (JSONException e) {
                                 Log.d("MainActivity", "run: error");
@@ -164,45 +166,42 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
-    public void displayGptInfo(String leafDisease) {
-
+    public void displayInfo(String leafDisease) {
         OkHttpClient client = new OkHttpClient();
 
-        MediaType mediaType = MediaType.parse("application/json");
-        RequestBody body = RequestBody.create(mediaType, "{ \"prompt\": \" Give Cure for "+leafDisease+"\", \"max_tokens\": 60 }");
         Request request = new Request.Builder()
-            .url("https://api.openai.com/v1/engines/davinci-codex/completions")
-            .post(body)
-            .addHeader("Content-Type", "application/json")
-            .addHeader("Authorization", "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")
-            .build();
-    
+                .url("https://fansan.pagekite.me/getInfo?content=" + leafDisease)
+                .build();
+
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
             }
-    
+
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 if (!response.isSuccessful()) {
                     throw new IOException("Unexpected code " + response);
                 } else {
                     // Do something with the response.
-                    final String gpt3Response = response.body().string();
-    
+                    final String gpt3Response = response.body().string().replace("\\n", "\n").replace("\"", "");;
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
                             // Update the UI with the GPT-3 response
-
-                            HomeFragment.DiseaseDetails.setText(gpt3Response);
+                            // For example, if you have a TextView to display the response:
+                            if (gpt3Response != null && !gpt3Response.isEmpty()) {
+                                HomeFragment.DiseaseDetails.setText(gpt3Response);
+                                HomeFragment.status.setText("");
+                            } else {
+                                HomeFragment.DiseaseDetails.setText("");
+                                HomeFragment.status.setText("Can't fetch Disease Details");
+                            }
                         }
                     });
                 }
             }
         });
     }
-    
 }

@@ -5,9 +5,16 @@ from io import BytesIO
 from PIL import Image
 import tensorflow as tf
 import requests
+import os
 import cv2
-app = FastAPI()
 
+import google.generativeai as palm
+import os
+
+palm.configure(api_key=os.environ['GOOGLE_PALM_API_KEY'])
+import textwrap
+
+app = FastAPI()
 #Defining Classes
 
 cropLabel=["Potato", "Tomato", "Corn", "Apple", "Grapes"]
@@ -37,13 +44,24 @@ MODEL_4 = tf.keras.models.load_model("../model_building_and_testing/models/saved
 @app.get("/ping")
 def ping():
     return "This is Plant Leaf Disease Prediction API."
-    
+
+
+
+def format_text(text, width=70):
+    wrapper = textwrap.TextWrapper(width=width)
+    return '\n'.join(wrapper.wrap(text))
+
+@app.get('/getInfo')
+async def getInfo(content: str):
+    response = palm.generate_text(prompt=content)
+    res=response.result
+    print(res)
+    return res
   
 def read_file_as_image(data) -> np.ndarray:
     image = np.array(Image.open(BytesIO(data)))
     image=cv2.resize(image,(224, 224))/255.0
     return image
-
   
 @app.post("/predict")
 async def predict(

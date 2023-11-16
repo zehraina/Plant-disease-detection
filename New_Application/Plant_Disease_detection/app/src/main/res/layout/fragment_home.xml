@@ -195,33 +195,47 @@
 
 
                     <TextView
-                        android:id="@+id/loading"
+                        android:id="@+id/status"
                         android:layout_width="381dp"
                         android:layout_height="39dp"
-                        android:layout_marginLeft="15sp" />
+                        android:layout_marginLeft="16sp"
+                        android:fontFamily="sans-serif"
+                        android:textColor="#FF9800"
+                        android:textStyle="italic" />
 
                     <TextView
                         android:id="@+id/result1"
                         android:layout_width="381dp"
                         android:layout_height="41dp"
                         android:layout_marginLeft="15sp"
-                        android:textColor="#00B307"
-                        android:textSize="20sp" />
+                        android:backgroundTint="#03A9F4"
+                        android:textAlignment="viewStart"
+                        android:textColor="#00FF0A"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/result2"
                         android:layout_width="381dp"
                         android:layout_height="36dp"
                         android:layout_marginLeft="15sp"
+                        android:textAlignment="viewStart"
                         android:textColor="#088BC6"
-                        android:textSize="20sp" />
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/DiseaseDetails"
-                        android:layout_width="match_parent"
-                        android:layout_height="500dp"
-                        android:text=""
-                        android:textSize="50dp" />
+                        android:layout_width="380dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:fontFamily="sans-serif"
+                        android:paddingBottom="20dp"
+                        android:singleLine="false"
+                        android:textAlignment="viewStart"
+                        android:textColor="#1DAC22"
+                        android:textSize="18sp"
+                        android:textStyle="bold|italic" />
 
 
                 </LinearLayout>
