@@ -41,7 +41,7 @@ public class HomeFragment extends Fragment {
     private final int GALLERY_REQ_CODE_ImageView5 = 100;
     ImageView imgDisplay;
 
-    public static TextView result1, result2,DiseaseDetails,status;
+    public static TextView result1, result2,DiseaseDetails,status,serverStatus;
     public static Bitmap img;
     Uri imageUri;
     public static boolean image_received=false;
@@ -71,14 +71,18 @@ public class HomeFragment extends Fragment {
         imageView8 = root.findViewById(R.id.imageView8);
 
         //prediction textView
-        status=root.findViewById(((R.id.status)));
+        serverStatus=root.findViewById(R.id.serverStatus);
+        status=root.findViewById(R.id.status);
         status.setText("");
-        result1=root.findViewById((R.id.result1));
+        result1=root.findViewById(R.id.result1);
         result2=root.findViewById(R.id.result2);
         // Set onClick listeners for ImageViews
         imageView1.setOnClickListener(v -> {
             textView1.setText("APPLE");
             crop_ID="3";
+            HomeFragment.DiseaseDetails.setText("");
+            HomeFragment.result1.setText("");
+            HomeFragment.result2.setText("");
             imageView7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -99,6 +103,9 @@ public class HomeFragment extends Fragment {
         imageView2.setOnClickListener(v -> {
             textView1.setText("POTATO");
             crop_ID="0";
+            HomeFragment.DiseaseDetails.setText("");
+            HomeFragment.result1.setText("");
+            HomeFragment.result2.setText("");
             imageView7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -122,6 +129,9 @@ public class HomeFragment extends Fragment {
         imageView3.setOnClickListener(v -> {
             textView1.setText("CORN");
             crop_ID="2";
+            HomeFragment.DiseaseDetails.setText("");
+            HomeFragment.result1.setText("");
+            HomeFragment.result2.setText("");
             imageView7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -142,6 +152,9 @@ public class HomeFragment extends Fragment {
         imageView4.setOnClickListener(v -> {
             textView1.setText("TOMATO");
             crop_ID="1";
+            HomeFragment.DiseaseDetails.setText("");
+            HomeFragment.result1.setText("");
+            HomeFragment.result2.setText("");
             imageView7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -162,6 +175,9 @@ public class HomeFragment extends Fragment {
         imageView5.setOnClickListener(v -> {
             textView1.setText("Grape");
             crop_ID="4";
+            HomeFragment.DiseaseDetails.setText("");
+            HomeFragment.result1.setText("");
+            HomeFragment.result2.setText("");
             imageView7.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -211,7 +227,6 @@ public class HomeFragment extends Fragment {
             }
 
             if(mainActivity!=null){
-                HomeFragment.status.setText("Making Predictions..");
                 mainActivity.make_prediction(crop_ID);
             }
         }

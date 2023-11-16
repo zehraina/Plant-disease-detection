@@ -1,6 +1,8 @@
 package com.example.plant_disease_detection;
 import okhttp3.*;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,10 +33,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private boolean ss;
     String prediction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -62,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        checkServerStatus();
     }
 
     @Override
@@ -80,10 +88,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void make_prediction(String crop_ID){
         if(HomeFragment.image_received==false) {
-            Toast.makeText(this, "Please Select an Image First!!!.", Toast.LENGTH_SHORT).show();
-            Log.d("MainActivity", "make_prediction: Please Select an Image First!!!.");
+            Toast.makeText(this, "Select an Image First!!!.", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "Select an Image First!!!.");
             return;
         }
+
+        if(ss==false){
+            Toast.makeText(this, "Server is offline :: Can't make Prediction!!!.", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "Server is offline :: Can't make Prediction!!!");
+            return;
+        }
+        HomeFragment.status.setText("Making Prediction...");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -138,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                                 double conf=Double.parseDouble(new JSONObject(content.toString()).getString("confidence"));
                                 Log.d("MainActivity", conf+"");
                                 if(conf<60){
-                                    HomeFragment.status.setText("Can't Predict this Image, Please Retry");
+                                    HomeFragment.status.setText("Prediction failed, Please try again");
                                     HomeFragment.result1.setText("");
                                     HomeFragment.result2.setText("");
                                 }
@@ -146,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
                                     String leafDisease=new JSONObject(content.toString()).getString("class");
                                     HomeFragment.result1.setText(new JSONObject(content.toString()).getString("class"));
                                     HomeFragment.result2.setText(String.format("%.2f",conf)+"%");
-                                    HomeFragment.status.setText("Collecting Info from Web");
+                                    HomeFragment.status.setText("Fetching Info");
                                     displayInfo(leafDisease);
                                 }
                             } catch (JSONException e) {
@@ -166,6 +181,56 @@ public class MainActivity extends AppCompatActivity {
         }).start();
     }
 
+    private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+    public void checkServerStatus() {
+        executorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Try to open a connection to the server
+                    URL url = new URL("https://fansan.pagekite.me/ping");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(5000); // set timeout to 5 seconds
+                    conn.connect();
+
+                    int responseCode = conn.getResponseCode();
+                    conn.disconnect();
+
+                    // If the response code is 200, the server is online
+                    if (responseCode == 200) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                HomeFragment.serverStatus.setText("Server is Online");
+                                HomeFragment.serverStatus.setTextColor(Color.GREEN);
+                                ss=true;
+                            }
+                        });
+                    } else {
+                        // If the response code is not 200, the server is offline
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                HomeFragment.serverStatus.setText("Server is Offline");
+                                HomeFragment.serverStatus.setTextColor(Color.RED);
+                                ss=false;
+                            }
+                        });
+                    }
+                } catch (IOException e) {
+                    // If an exception was thrown, the server is offline
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            HomeFragment.serverStatus.setText("Server is Offline");
+                            HomeFragment.serverStatus.setTextColor(Color.RED);
+                            ss=false;
+                        }
+                    });
+                }
+            }
+        }, 0, 5, TimeUnit.SECONDS); // check every 5 seconds
+    }
     public void displayInfo(String leafDisease) {
         OkHttpClient client = new OkHttpClient();
 
