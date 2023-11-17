@@ -1,10 +1,13 @@
 package com.example.plant_disease_detection;
-
+import okhttp3.*;
 import android.graphics.Bitmap;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plant_disease_detection.ui.home.HomeFragment;
@@ -26,14 +29,18 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
-
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    private boolean ss;
     String prediction;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -61,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_main);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+        checkServerStatus();
     }
 
     @Override
@@ -79,10 +88,17 @@ public class MainActivity extends AppCompatActivity {
 
     public void make_prediction(String crop_ID){
         if(HomeFragment.image_received==false) {
-            Toast.makeText(this, "Please Select an Image First!!!.", Toast.LENGTH_SHORT).show();
-            Log.d("MainActivity", "make_prediction: Please Select an Image First!!!.");
+            Toast.makeText(this, "Select an Image First!!!.", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "Select an Image First!!!.");
             return;
         }
+
+        if(ss==false){
+            Toast.makeText(this, "Server is offline :: Can't make Prediction!!!.", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "Server is offline :: Can't make Prediction!!!");
+            return;
+        }
+        HomeFragment.status.setText("Making Prediction...");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -137,12 +153,16 @@ public class MainActivity extends AppCompatActivity {
                                 double conf=Double.parseDouble(new JSONObject(content.toString()).getString("confidence"));
                                 Log.d("MainActivity", conf+"");
                                 if(conf<60){
-                                    HomeFragment.result1.setText("Can't Detect Disease Type from the given Image");
-                                    HomeFragment.result2.setText("Please Choose the Right Crop, or a better Image");
+                                    HomeFragment.status.setText("Prediction failed, Please try again");
+                                    HomeFragment.result1.setText("");
+                                    HomeFragment.result2.setText("");
                                 }
                                 else{
+                                    String leafDisease=new JSONObject(content.toString()).getString("class");
                                     HomeFragment.result1.setText(new JSONObject(content.toString()).getString("class"));
                                     HomeFragment.result2.setText(String.format("%.2f",conf)+"%");
+                                    HomeFragment.status.setText("Fetching Info");
+                                    displayInfo(leafDisease);
                                 }
                             } catch (JSONException e) {
                                 Log.d("MainActivity", "run: error");
@@ -150,7 +170,8 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("MainActivity", "Response: " + content.toString());
-                            Toast.makeText(MainActivity.this, "Response: " + prediction+" | "+crop_ID, Toast.LENGTH_LONG).show();
+                            //Toast.makeText(MainActivity.this, "Response: " + prediction+" | "+crop_ID, Toast.LENGTH_LONG).show();
+
                         }
                     });
                 } catch (Exception e) {
@@ -158,5 +179,94 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    private ScheduledExecutorService executorService = Executors.newSingleThreadScheduledExecutor();
+    public void checkServerStatus() {
+        executorService.scheduleAtFixedRate(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    // Try to open a connection to the server
+                    URL url = new URL("https://fansan.pagekite.me/ping");
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setConnectTimeout(5000); // set timeout to 5 seconds
+                    conn.connect();
+
+                    int responseCode = conn.getResponseCode();
+                    conn.disconnect();
+
+                    // If the response code is 200, the server is online
+                    if (responseCode == 200) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                HomeFragment.serverStatus.setText("Server is Online");
+                                HomeFragment.serverStatus.setTextColor(Color.GREEN);
+                                ss=true;
+                            }
+                        });
+                    } else {
+                        // If the response code is not 200, the server is offline
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                HomeFragment.serverStatus.setText("Server is Offline");
+                                HomeFragment.serverStatus.setTextColor(Color.RED);
+                                ss=false;
+                            }
+                        });
+                    }
+                } catch (IOException e) {
+                    // If an exception was thrown, the server is offline
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            HomeFragment.serverStatus.setText("Server is Offline");
+                            HomeFragment.serverStatus.setTextColor(Color.RED);
+                            ss=false;
+                        }
+                    });
+                }
+            }
+        }, 0, 5, TimeUnit.SECONDS); // check every 5 seconds
+    }
+    public void displayInfo(String leafDisease) {
+        OkHttpClient client = new OkHttpClient();
+
+        Request request = new Request.Builder()
+                .url("https://fansan.pagekite.me/getInfo?content=" + leafDisease)
+                .build();
+
+        client.newCall(request).enqueue(new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                if (!response.isSuccessful()) {
+                    throw new IOException("Unexpected code " + response);
+                } else {
+                    // Do something with the response.
+                    final String gpt3Response = response.body().string().replace("\\n", "\n").replace("\"", "");;
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // Update the UI with the GPT-3 response
+                            // For example, if you have a TextView to display the response:
+                            if (gpt3Response != null && !gpt3Response.isEmpty()) {
+                                HomeFragment.DiseaseDetails.setText(gpt3Response);
+                                HomeFragment.status.setText("");
+                            } else {
+                                HomeFragment.DiseaseDetails.setText("");
+                                HomeFragment.status.setText("Can't fetch Disease Details");
+                            }
+                        }
+                    });
+                }
+            }
+        });
     }
 }
