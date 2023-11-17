@@ -80,8 +80,8 @@ public class MainActivity extends AppCompatActivity {
 
     public void make_prediction(String crop_ID){
         if(HomeFragment.image_received==false) {
-            Toast.makeText(this, "Please Select an Image First!!!.", Toast.LENGTH_SHORT).show();
-            Log.d("MainActivity", "make_prediction: Please Select an Image First!!!.");
+            Toast.makeText(this, "Please select an image first!", Toast.LENGTH_SHORT).show();
+            Log.d("MainActivity", "make_prediction: Please select an image first!");
             return;
         }
         new Thread(new Runnable() {
@@ -138,7 +138,7 @@ public class MainActivity extends AppCompatActivity {
                                 double conf=Double.parseDouble(new JSONObject(content.toString()).getString("confidence"));
                                 Log.d("MainActivity", conf+"");
                                 if(conf<60){
-                                    HomeFragment.status.setText("Can't Predict this Image, Please Retry");
+                                    HomeFragment.status.setText("Can't detect this image, please try another.");
                                     HomeFragment.result1.setText("");
                                     HomeFragment.result2.setText("");
                                 }
@@ -146,7 +146,7 @@ public class MainActivity extends AppCompatActivity {
                                     String leafDisease=new JSONObject(content.toString()).getString("class");
                                     HomeFragment.result1.setText(new JSONObject(content.toString()).getString("class"));
                                     HomeFragment.result2.setText(String.format("%.2f",conf)+"%");
-                                    HomeFragment.status.setText("Collecting Info from Web");
+                                    HomeFragment.status.setText("Collecting information from the web...");
                                     displayInfo(leafDisease);
                                 }
                             } catch (JSONException e) {
