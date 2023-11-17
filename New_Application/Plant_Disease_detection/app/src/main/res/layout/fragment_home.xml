@@ -68,7 +68,8 @@
                             android:id="@+id/imgDisplay"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="#73A65B">
+                            android:background="#73A65B"
+                            android:src="@drawable/img_7">
 
 
                         </ImageView>

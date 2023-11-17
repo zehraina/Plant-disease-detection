@@ -173,7 +173,7 @@ public class HomeFragment extends Fragment {
         });
 
         imageView5.setOnClickListener(v -> {
-            textView1.setText("Grape");
+            textView1.setText("GRAPE");
             crop_ID="4";
             HomeFragment.DiseaseDetails.setText("");
             HomeFragment.result1.setText("");
