@@ -159,7 +159,7 @@ public class HomeFragment extends Fragment {
         });
 
         imageView5.setOnClickListener(v -> {
-            textView1.setText("Grape");
+            textView1.setText("GRAPE");
             textView5.setText("Content for Image 5 - TextView3");
             crop_ID="4";
             imageView7.setOnClickListener(new View.OnClickListener() {
