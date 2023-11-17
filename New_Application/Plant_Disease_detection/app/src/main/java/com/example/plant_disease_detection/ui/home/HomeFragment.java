@@ -78,7 +78,7 @@ public class HomeFragment extends Fragment {
         result2=root.findViewById(R.id.result2);
         // Set onClick listeners for ImageViews
         imageView1.setOnClickListener(v -> {
-            textView1.setText("APPLE");
+            textView1.setText("APPLE LEAF");
             crop_ID="3";
             HomeFragment.DiseaseDetails.setText("");
             HomeFragment.result1.setText("");
@@ -101,7 +101,7 @@ public class HomeFragment extends Fragment {
         });
 
         imageView2.setOnClickListener(v -> {
-            textView1.setText("POTATO");
+            textView1.setText("POTATO LEAF");
             crop_ID="0";
             HomeFragment.DiseaseDetails.setText("");
             HomeFragment.result1.setText("");
@@ -127,7 +127,7 @@ public class HomeFragment extends Fragment {
         });
 
         imageView3.setOnClickListener(v -> {
-            textView1.setText("CORN");
+            textView1.setText("CORN LEAF");
             crop_ID="2";
             HomeFragment.DiseaseDetails.setText("");
             HomeFragment.result1.setText("");
@@ -150,7 +150,7 @@ public class HomeFragment extends Fragment {
         });
 
         imageView4.setOnClickListener(v -> {
-            textView1.setText("TOMATO");
+            textView1.setText("TOMATO LEAF");
             crop_ID="1";
             HomeFragment.DiseaseDetails.setText("");
             HomeFragment.result1.setText("");
@@ -173,7 +173,7 @@ public class HomeFragment extends Fragment {
         });
 
         imageView5.setOnClickListener(v -> {
-            textView1.setText("GRAPE");
+            textView1.setText("GRAPE LEAF");
             crop_ID="4";
             HomeFragment.DiseaseDetails.setText("");
             HomeFragment.result1.setText("");
