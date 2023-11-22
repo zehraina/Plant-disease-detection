@@ -73,7 +73,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingLeft="20dp"
-                            android:text="Pluck a leave and place it either grey or white color surface to insert the image of the leaf"
+                            android:text="Pluck a leave and place it either on grey or white color surface to insert the image of the leaf"
                             android:textColor="@color/black" />
 
 
