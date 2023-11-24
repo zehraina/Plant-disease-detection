@@ -59,7 +59,7 @@
                             android:paddingLeft="20dp"
                             android:text="Check your Crop"
                             android:textColor="#618C4D"
-                            android:textSize="25dp" />
+                            android:textSize="26dp" />
 
 
                     </LinearLayout>
