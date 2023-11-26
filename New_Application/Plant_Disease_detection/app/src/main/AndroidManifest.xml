@@ -15,6 +15,15 @@
         android:theme="@style/Theme.Plant_Disease_detection"
         tools:targetApi="31">
         <activity
+            android:name=".UserProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterActivity"
+            android:exported="false" />
+        <activity
             android:name=".LoginActivity"
             android:exported="false" />
         <activity
@@ -30,7 +39,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.Plant_Disease_detection.NoActionBar"></activity>
+            android:theme="@style/Theme.Plant_Disease_detection.NoActionBar" />
     </application>
 
 </manifest>
