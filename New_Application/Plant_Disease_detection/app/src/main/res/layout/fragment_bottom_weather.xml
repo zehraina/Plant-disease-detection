@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FF5722"
-    tools:context=".BottomHomeFragment">
+    android:background="#FFEB3B"
+    tools:context=".BottomWeatherFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Home"
+        android:text="Weather"
         android:textSize="40dp"
         android:layout_margin="11dp"
         android:textColor="@color/black"

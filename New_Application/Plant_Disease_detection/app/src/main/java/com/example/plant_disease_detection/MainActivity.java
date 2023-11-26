@@ -2,13 +2,11 @@ package com.example.plant_disease_detection;
 import okhttp3.*;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plant_disease_detection.ui.home.HomeFragment;
@@ -75,19 +73,19 @@ public class MainActivity extends AppCompatActivity {
                 int id = item.getItemId();
 
                 if(id == R.id.nav_home){
-                    loadFrag(new HomeFragment(), true);
+                    loadFrag(new BottomHomeFragment(), true);
                 }
                 else if(id == R.id.nav_history){
-                    loadFrag(new HistoryFragment(), false);
+                    loadFrag(new BottomHistoryFragment(), false);
                 }
                 else if(id == R.id.nav_about){
-                    loadFrag(new AboutFragment(), false);
+                    loadFrag(new BottomAboutFragment(), false);
                 }
                 else if(id == R.id.nav_weather){
-                    loadFrag(new WeatherFragment(), false);
+                    loadFrag(new BottomWeatherFragment(), false);
                 }
                 else if(id == R.id.nav_userprofile){
-                    loadFrag(new UserFragment(), false);
+                    loadFrag(new BottomUserFragment(), false);
                 }
                 return true;
             }
@@ -109,17 +107,18 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
         checkServerStatus();
 
-        public void loadFrag(Fragment fragment, boolean flag){
-            FragmentManager fm = getSupportFragmentManager();
-            FragmentTransaction ft = fm.beginTransaction();
-            if (flag){
-                ft.add(R.id.container_frame_layout, fragment);
-            }
-            else {
-                ft.replace(R.id.container_frame_layout,fragment);
-            }
-            ft.commit();
+
+    }
+    public void loadFrag(Fragment fragment, boolean flag){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        if (flag){
+            ft.add(R.id.container_frame_layout, fragment);
         }
+        else {
+            ft.replace(R.id.container_frame_layout,fragment);
+        }
+        ft.commit();
     }
 
     @Override
