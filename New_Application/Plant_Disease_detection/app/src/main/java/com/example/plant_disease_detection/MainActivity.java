@@ -2,18 +2,22 @@ package com.example.plant_disease_detection;
 import okhttp3.*;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.plant_disease_detection.ui.home.HomeFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
 
+import androidx.annotation.NonNull;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
@@ -40,6 +44,7 @@ import java.util.concurrent.TimeUnit;
 public class MainActivity extends AppCompatActivity {
     private AppBarConfiguration mAppBarConfiguration;
     private ActivityMainBinding binding;
+    BottomNavigationView bottomNavigationView;
     private boolean ss;
     String prediction;
     @Override
@@ -58,6 +63,37 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+        bottomNavigationView = findViewById(R.id.bottom_navigation_view);
+
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+
+                int id = item.getItemId();
+
+                if(id == R.id.nav_home){
+                    loadFrag(new BottomHomeFragment(), true);
+                }
+                else if(id == R.id.nav_history){
+                    loadFrag(new BottomHistoryFragment(), false);
+                }
+                else if(id == R.id.nav_about){
+                    loadFrag(new BottomAboutFragment(), false);
+                }
+                else if(id == R.id.nav_weather){
+                    loadFrag(new BottomWeatherFragment(), false);
+                }
+                else if(id == R.id.nav_userprofile){
+                    loadFrag(new BottomUserFragment(), false);
+                }
+                return true;
+            }
+        });
+
+        bottomNavigationView.setSelectedItemId(R.id.nav_home);
+
+
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         // Passing each menu ID as a set of Ids because each
@@ -70,6 +106,19 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
         checkServerStatus();
+
+
+    }
+    public void loadFrag(Fragment fragment, boolean flag){
+        FragmentManager fm = getSupportFragmentManager();
+        FragmentTransaction ft = fm.beginTransaction();
+        if (flag){
+            ft.add(R.id.container_frame_layout, fragment);
+        }
+        else {
+            ft.replace(R.id.container_frame_layout,fragment);
+        }
+        ft.commit();
     }
 
     @Override
