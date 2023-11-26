@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "700544775703",
+    "project_id": "plant-disease-detection-aba5f",
+    "storage_bucket": "plant-disease-detection-aba5f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:700544775703:android:175fc9f7c7bcc163724e52",
+        "android_client_info": {
+          "package_name": "com.example.plant_disease_detection"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBq4mj-MVieYOHSRT2FFfApmKb963VDU9A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
